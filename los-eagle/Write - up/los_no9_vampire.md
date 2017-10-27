@@ -1,4 +1,4 @@
-# Lord of SQL Injection No. 8- troll
+# Lord of SQL Injection No. 9 - vampire
 ## 문제 출제 의도
 str_replace 함수를 이해하고 있는지 확인한다.
 ## 소스 코드 분석

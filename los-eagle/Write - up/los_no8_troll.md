@@ -1,4 +1,4 @@
-# Lord of SQL Injection No. 8- troll
+# Lord of SQL Injection No. 8 - troll
 ## 문제 출제 의도
 정규표현식을 이해하고 있는지 알아본다.
 ## 소스 코드 분석
