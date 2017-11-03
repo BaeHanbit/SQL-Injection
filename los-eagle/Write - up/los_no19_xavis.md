@@ -1,4 +1,4 @@
-## Lord of SQL Injection No. 8 - troll
+## Lord of SQL Injection No. 19 - xavis
 ## 문제 출제 의도
 1. Ascii범위를 벗어난 pw 값을 알아낼 수 있는지 확인한다.
 2. pw 길이를 알아 낼 수 있는지 확인한다.
