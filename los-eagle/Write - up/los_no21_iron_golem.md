@@ -25,7 +25,7 @@ Error Based SQL Injection의 이해 여부를 확인한다.
 + 소스 코드 분석
     - 금지 문자, 문자열
         * GET 방식으로 받은 pw값에 'prob _ . ( )중 하나라도 있다면 "No Hack~_~"이 출력되고 문제 풀이에 실패한다.
-        * GET방식으로 받은 pw값에 공백이 있으면 "sleep", "benchmark" 중 하나라고있다면 "HeHe"가 출력되고 문제풀이에 실패한다.
+        * GET방식으로 받은 pw값에 "sleep", "benchmark" 중 하나라도 있다면 "HeHe"가 출력되고 문제풀이에 실패한다.
     - 에러 출력
         ~~~
         if(mysql_error()) exit(mysql_error());

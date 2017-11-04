@@ -1,4 +1,4 @@
-## Lord of SQL Injection No. 13- Bugbear
+## Lord of SQL Injection No. 13 - Bugbear
 ## 문제 출제 의도
 like함수, substr함수, substring함수 없이 SQL문을 조작 가능 한지 확인한다.
 ## 소스 코드 분석

@@ -1,4 +1,4 @@
-## Lord of SQL Injection No. 14- Giant
+## Lord of SQL Injection No. 14 - Giant
 ## 문제 출제 의도
 공백인듯 공백아닌 공백같은 너를 이해하고 있는지 확인한다.
 ## 소스 코드 분석

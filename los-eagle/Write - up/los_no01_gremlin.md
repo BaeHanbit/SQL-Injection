@@ -1,22 +1,23 @@
-# Lord of SQL Injection No.1 - gremlin
+# Lord of SQL Injection No.1 - Gremlin
 ## 문제 출제 의도
-가장 기초적인 SQL Injection을 통해 SQL을 이해, 제어가능 여부를 확인한다.
+1. 가장 기초적인 SQL Injection의 이해여부, 제어가능 여부를 확인.
 ## 소스 코드 분석
 + 소스코드  
-~~~
-<?php  
-    include "./config.php";  
-    login_chk();  
-    dbconnect();  
-    if(preg_match('/prob|_|\.|\(\)/i', $_GET[id])) exit("No Hack ~_~");// do not try to attack another table, database!  
-    if(preg_match('/prob|_|\.|\(\)/i', $_GET[pw])) exit("No Hack ~_~");  
-    $query = "select id from prob_gremlin where id='{$_GET[id]}' and pw='{$_GET[pw]}'";  
-    echo "<hr>query : <strong>{$query}</strong><hr><br>";
-    $result = @mysql_fetch_array(mysql_query($query));
-    if($result['id']) solve("gremlin");
-    highlight_file(__FILE__);
-?>
-~~~
+Gremlin의 소스코드는 다음과 같다.
+    ~~~
+    <?php  
+        include "./config.php";  
+        login_chk();  
+        dbconnect();  
+        if(preg_match('/prob|_|\.|\(\)/i', $_GET[id])) exit("No Hack ~_~");// do not try to attack another table, database!  
+        if(preg_match('/prob|_|\.|\(\)/i', $_GET[pw])) exit("No Hack ~_~");  
+        $query = "select id from prob_gremlin where id='{$_GET[id]}' and pw='{$_GET[pw]}'";  
+        echo "<hr>query : <strong>{$query}</strong><hr><br>";
+        $result = @mysql_fetch_array(mysql_query($query));
+        if($result['id']) solve("gremlin");
+        highlight_file(__FILE__);
+    ?>
+    ~~~
 + 소스 코드 분석  <hr>
     - < ?php 로 시작하고, 동시에 ?> 로 끝나는 것을 보아 php라는 것을 알 수 있다. 
     - include "./congig.php";  
@@ -73,10 +74,3 @@
     ~~~
     select id from prob_gremlin where id='' or 1=1 -- -' and pw=''
     ~~~ 
-  
-
-
-
-
-
-    
