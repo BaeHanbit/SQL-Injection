@@ -19,14 +19,8 @@ Cobolt의 소스코드는 다음과 같다.
     highlight_file(__FILE__); 
   ?>
   ~~~
-+ 소스 코드 분석 <hr>
-    ~~~
-    ?php , ?>
-    include "./config.php";
-    login_chk();
-    dbconnect();
-    ~~~ 
-    - 내용이 php로 작성되었다는 것을 알 수 있다.
++ 소스 코드 분석
+  - 금지 문자, 문자열
     - congig.php라는 분리된 파일을 외부에서 불러와 적용시킨다.
     - login_chk(); 로그인 여부를 확인하는 함수라고 추정할 수 있다.
     - dbconnect();라는 함수는 데이터베이스와 연동하는 함수라고 추정 가능하다.
