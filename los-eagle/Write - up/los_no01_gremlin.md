@@ -1,7 +1,8 @@
 # Lord of SQL Injection No.1 - Gremlin
 ## 문제 출제 의도
-1. SQL Injection의 이해여부를 확인.
-2. 가장 SQL Injection을 실행 가능한지 확인.
+1. PHP 코드의 이해 여부 확인.
+2. SQL Injection의 이해 여부 확인.
+3. MySQL의 이해 여부 확인.
 ## 소스 코드 
 ~~~
 <?php  
@@ -51,12 +52,57 @@
             숫자형색인을 반환한다.
         * mysql_fetch_array함수에 대해 잘 모르겠다면 다음 사이트를 참고하자.  
         <a href="http://php.net/manual/kr/function.mysql-fetch-array.php">PHP: mysql_fetch_array - Manual</a>
++ 문법
+1. if 제어문
+    + if문은 if 구문 안의 표현식이 TURE일때 수행된다.
+    + if문은 다음과 같은 형식을 취한다.
+    ~~~
+    if(True/False)
+    ~~~
+    + if 제어문에 대해 잘 모르겠다면 다음 사이트를 참고하자.  
+    <a href="http://php.net/manual/kr/control-structures.if.php">PHP: if - Manual</a>
+2. else 제어문
+    + else문은 if 구문 안의 표현식이 FALSE일때 수행된다.
+    + else문은 다음과 같은 형식을 취한다.
+    ~~~
+    if(True/False)
+    {
+        echo "It is true!!"
+    }
+    else
+    {
+        echo "It is false!!"
+    }
+    ~~~
+    + else 제어문에 대해 잘 모르겠다면 다음 사이트를 참고하자.  
+    <a href="http://php.net/manual/kr/control-structures.else.php">PHP: else - Manual</a>
+3. elseif 제어문
+    + elseif문은 elseif 구문 안의 표현식이 TRUE일 수행된다.
+    + elseif문은 다음과 같은 형식을 취한다.
+    ~~~
+    if(True/False)
+    {
+        echo "It is true!!"
+    }
+    elseif(True/False)
+    {
+        echo "It is true in elseif"
+        echo "It is false in if"
+    }
+    else
+    {
+        echo "It is false in If!!"
+        echo "It is flase in elseif!"
+    }
+    ~~~
+    + elseif 제어문에 대해 잘 모르겠다면 다음 사이트를 참고하자.  
+    <a href="http://php.net/manual/kr/control-structures.elseif.php">PHP: elseif/else if - Manual</a>
 ## 분석 결론
 + 금지 문자, 문자열
     - GET방식으로 입력받은 id값에 prob _ . () 중 하나라도 있다면 "No Hack ~_~"이 출력되고 문제 풀이에 실패한다.
-    - GET방식으로 입력받은 pw값에 prob _ . () 중 하나라도 있다면 "No Hack ~_~"이 출력되고 문제 풀이에 실패한다.
+    - GET방식으로 입력받은 pw값에 prob _ . () 중 하나라도 있다면 "No Hack ~_~ "이 출력되고 문제 풀이에 실패한다.
 + 풀이 성공 조건
-    - 만약 데이터베이스에서 받은 값이 0이 아니라면 문제 해결에 성공한다.
+    - 데이터베이스에서 받은 값이 0이 아니라면 문제 해결에 성공한다.
 ## 문제 해결
 1. WHERE 조건절 무력화
     - id, pw값을 '(single quote)를 이용하여 조작 가능하다.

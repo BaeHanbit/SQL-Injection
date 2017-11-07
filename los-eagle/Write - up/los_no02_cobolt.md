@@ -1,52 +1,51 @@
-# Lord of SQL Injection No.2 - Cobolt
+# Lord of SQL Injection No.1 - Cobolt
 ## 문제 출제 의도
-1. SQL Injection을 통해 원하는 값의 SELECT 가능 여부를 확인. 
+1. MYSQL에서 원하는 값을 가져 올 수 있는지 확인.
+2. PHP에서 GET방식의 입력값을 조작 가능한지 확인.
+## 소스 코드
+~~~
+<?php
+  include "./config.php"; 
+  login_chk();
+  dbconnect();
+  if(preg_match('/prob|_|\.|\(\)/i', $_GET[id])) exit("No Hack ~_~"); 
+  if(preg_match('/prob|_|\.|\(\)/i', $_GET[pw])) exit("No Hack ~_~"); 
+  $query = "select id from prob_cobolt where id='{$_GET[id]}' and pw=md5('{$_GET[pw]}')"; 
+  echo "<hr>query : <strong>{$query}</strong><hr><br>"; 
+  $result = @mysql_fetch_array(mysql_query($query)); 
+  if($result['id'] == 'admin') solve("cobolt");
+  elseif($result['id']) echo "<h2>Hello {$result['id']}<br>You are not admin :(</h2>"; 
+  highlight_file(__FILE__); 
+?>
+~~~
 ## 소스 코드 분석
-+ 소스 코드  
-Cobolt의 소스코드는 다음과 같다.
++ md5()
+  - 문자열의 md5 해시를 계산한다.
+  - md5 함수는 다음과 같은 형식을 취한다.
   ~~~
-  <?php
-    include "./config.php"; 
-    login_chk();
-    dbconnect();
-    if(preg_match('/prob|_|\.|\(\)/i', $_GET[id])) exit("No Hack ~_~"); 
-    if(preg_match('/prob|_|\.|\(\)/i', $_GET[pw])) exit("No Hack ~_~"); 
-    $query = "select id from prob_cobolt where id='{$_GET[id]}' and pw=md5('{$_GET[pw]}')"; 
-    echo "<hr>query : <strong>{$query}</strong><hr><br>"; 
-    $result = @mysql_fetch_array(mysql_query($query)); 
-    if($result['id'] == 'admin') solve("cobolt");
-    elseif($result['id']) echo "<h2>Hello {$result['id']}<br>You are not admin :(</h2>"; 
-    highlight_file(__FILE__); 
-  ?>
+  string md5 ( string $str [, bool $raw_output ] )
   ~~~
-+ 소스 코드 분석
-  - 금지 문자, 문자열
-    - congig.php라는 분리된 파일을 외부에서 불러와 적용시킨다.
-    - login_chk(); 로그인 여부를 확인하는 함수라고 추정할 수 있다.
-    - dbconnect();라는 함수는 데이터베이스와 연동하는 함수라고 추정 가능하다.
-    ~~~
-    if(preg_match('/prob|_|\.|\(\)/i', $_GET[id])) exit("No Hack ~_~"); 
-    if(preg_match('/prob|_|\.|\(\)/i', $_GET[pw])) exit("No Hack ~_~"); 
-    ~~~
-    - prob, . , ( , ) 이 받은 id 값에 있으면 No Hack ~_~이 출력된다.
-    - prob, . , ( , ) 이 받은 pw 값에 있으면 No Hack ~_~이 출력된다.
-    ~~~
-     $result = @mysql_fetch_array(mysql_query($query));
-    ~~~
-    - mysql_fetch_array 인출된 값을 연관배열/숫자형 인덱스 로 저장한다.
-    ~~~
-    if($result['id'] == 'admin') solve("cobolt");
-    elseif($result['id']) echo "<h2>Hello {$result['id']}<br>You are not admin :(</h2>"; 
-    ~~~
-    - 만약 입력 받은 아이 값이 admin이면 solve("cobolt")를 출력하고 그렇지 않다면 You are not admin을 출력한다.
+  - $raw_output
+    * 값이 TRUE이면, 해시를 길이 16의 바이너리 형식으로 반환한다.
+    * 기본값은 FALSE이다.
+  - 16진수 32 문자로 해시를 반환한다.
+## 분석 결론
++ 금지 문자, 문자열
+    - GET방식으로 입력받은 id값에 prob _ . () 중 하나라도 있다면 "No Hack ~_~"이 출력되고 문제 풀이에 실패한다.
+    - GET방식으로 입력받은 pw값에 prob _ . () 중 하나라도 있다면 "No Hack ~_~ "이 출력되고 문제 풀이에 실패한다.
++ pw값은 입력받은 뒤에 md5함수에 의해 암호화 된다.
++ 풀이 성공 조건
+    - 데이터베이스에서 받은 값이 'admin' 이면 문제 해결에 성공한다.
 ## 문제 해결
-  + 풀이 방법 <hr>  
-  **Get**방식으로 값을 입력받기 때문에 URL 다음에 다음과 같이 쿼리 스트링을 추가하면 된다. 
+1. WHERE 조건절 조작
+    - id값을 '(single quote)를 이용하여 조작 가능하다.
+    - 다음과 유사한 방법들로 WHERE 조건절을 조작 할 수 있다.
     ~~~
     ?id=admin' -- -
     ~~~
-    그러면 결과적으로 쿼리는 
+    - id가 'admin'인 레코드의 데이터를 불러온다.
+2. UNION
+    - 다음과 유사한 방법으로 빈 테이블에 추가 값을 가지고 올 수 있다.
     ~~~
-    select id from prob_cobolt where id='admin'-- -' and pw=md5('')
+    ?id=' UNION(SELECT 'admin') -- -
     ~~~
-    이 됨으로 $result['id']에 'admin'이 들어가 문제가 해결된다.
