@@ -1,9 +1,9 @@
-# Lord of SQL Injection No.5 - wolfman
+# Lord of SQL Injection No.5 - Wolfman
 ## 문제 출제 의도
-' '(공백)없이 쿼리를 조작하여 해결 할 수 있는지 확인한다.
+1. ' '(공백)없이 쿼리를 조작하여 해결 할 수 있는지 확인.
 ## 소스 코드 분석
 + 소스 코드  
-wolfman의 소스 코드는 다음과 같다.
+Wolfman의 소스 코드는 다음과 같다.
     ~~~
     <?php 
     include "./config.php"; 

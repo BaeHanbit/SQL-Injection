@@ -1,9 +1,9 @@
-# Lord of SQL Injection No.7 - orge
+# Lord of SQL Injection No.7 - Orge
 ## 문제 출제 의도
-'and'나 'or'을 사용하지 않고 Blind SQL을 할 수 있는지 확인한다.
+1. 'and'나 'or'을 사용하지 않고 Blind SQL을 할 수 있는지 확인한다.
 ## 소스 코드 분석
 + 소스코드
-orge의 소스코드는 다음과 같다.
+Orge의 소스코드는 다음과 같다.
     ~~~
     <?php 
     include "./config.php"; 

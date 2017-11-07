@@ -1,8 +1,9 @@
-# Lord of SQL Injection No.3 - goblin
+# Lord of SQL Injection No.3 - Goblin
 ## 문제 출제 의도
-따옴표 없이 SQL문을 조작 할 수 있는지 확인한다.
+1. Single quote 없이 SQL문을 조작 할 수 있는지 확인한다.
 ## 소스 코드 분석
 + 소스코드
+Goblin의 소스코드는 다음과 같다.
 ~~~
     <?php 
     include "./config.php"; 

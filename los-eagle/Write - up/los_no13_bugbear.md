@@ -3,7 +3,7 @@
 like함수, substr함수, substring함수 없이 SQL문을 조작 가능 한지 확인한다.
 ## 소스 코드 분석
 + 소스 코드  
-bugbear소스 코드는 다음과 같다.   
+Bugbear의 소스코드는 다음과 같다.   
     ~~~ 
     <?php 
     include "./config.php"; 
@@ -24,11 +24,13 @@ bugbear소스 코드는 다음과 같다.
     ?>
     ~~~
 + 소스 코드 분석
-    - Get 방식으로 받은 no값에 prob _ . ( )중 하나라도 있다면 "No Hack~_~"이 출력되고 문제 풀이에 실패한다.
-    - Get 방식으로 받은 pw값에 (single quote)가 있다면 "HeHe"가 출력되고 문제 풀이에 실패한다.
-    - Get 방식으로 받은 no값에 (single quote),substr,ascii,=(대입연산자),or,and중 하나라도 있다면 "HeHe"가 출력되고 문제 풀이에 실패한다.
+    - 금지 문자, 문자열
+        * Get 방식으로 받은 no값에 prob _ . ( )중 하나라도 있다면 "No Hack~_~"이 출력되고 문제 풀이에 실패한다.
+        * Get 방식으로 받은 pw값에 (single quote)가 있다면 "HeHe"가 출력되고 문제 풀이에 실패한다.
+        * Get 방식으로 받은 no값에 (single quote),substr,ascii,=(대입연산자),or,and중 하나라도 있다면 "HeHe"가 출력되고 문제 풀이에 실패한다.
     - SQL문을 통해 받은 id 값이 0이 아니라면 "Hello Id"가 출력된다.
-    - 문제 풀이에 성공하는 조건은 한 레코드의 id 값이 'admin'이고 pw값이 입력한 pw 값과 같을 떄 즉 id가 'admin'인 회원의 pw값을 알아내야 한다.
+    - 풀이 성공 조건
+        * 입력한 pw값과 실제 pw값이 일치해야 한다.
 ## 문제 해결
 + IN
     - 대입 연산자를 대체하여 그 자리에 동일하게 IN을 삽입하고 대입할 문자열을()소괄호로 묶어주어 사용하면 '=' 을 사용하지 않고 SQL문을 조작 가능하다.

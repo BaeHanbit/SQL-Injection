@@ -1,6 +1,6 @@
 # Lord of SQL Injection No.4 - Orc
 ## 문제 출제 의도
-기본적인 Blind SQL을 할 수 있는지 확인한다.
+1. 기본적인 Blind SQL을 할 수 있는지 확인한다.
 ## 소스 코드 분석
 + 소스 코드  
 Orc의 소스코드는 다음과 같다.

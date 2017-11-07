@@ -1,9 +1,9 @@
-# Lord of SQL Injection No.6 - darkelp
+# Lord of SQL Injection No.6 - Darkelp
 ## 문제 출제 의도
-'and', 'or' 없이 SQL문을 조작 할 수 있는지 확인한다.
+1. 'and', 'or' 없이 SQL문을 조작 할 수 있는지 확인.
 ## 소스 코드 분석
 + 소스코드
-darkelp의 소스코드는 다음과 같다.
+Darkelp의 소스코드는 다음과 같다.
     ~~~
     <?php 
     include "./config.php"; 

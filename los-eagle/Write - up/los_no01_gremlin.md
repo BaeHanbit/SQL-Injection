@@ -1,6 +1,7 @@
 # Lord of SQL Injection No.1 - Gremlin
 ## 문제 출제 의도
-1. 가장 기초적인 SQL Injection의 이해여부, 제어가능 여부를 확인.
+1. SQL Injection의 이해여부를 확인.
+2. 가장 SQL Injection을 실행 가능한지 확인.
 ## 소스 코드 분석
 + 소스코드  
 Gremlin의 소스코드는 다음과 같다.
@@ -18,16 +19,19 @@ Gremlin의 소스코드는 다음과 같다.
         highlight_file(__FILE__);
     ?>
     ~~~
-+ 소스 코드 분석  <hr>
-    - < ?php 로 시작하고, 동시에 ?> 로 끝나는 것을 보아 php라는 것을 알 수 있다. 
-    - include "./congig.php";  
-      congig.php라는 분리된 파일을 외부에서 불러와 적용시킨다.
-      이후 정의 한적 없는 사용자 정의 함수가 나오면 congig.php에 선언되어 있다고 추정할 수 있다.
-      * **include**
-      1. php의 include를 모른다면 다음 문서를 참고하자.
-      2. <a href = "http://php.net/manual/kr/function.include.php">PHP: include - Manual</a>
-    - login_chk();라는 함수는 로그인상태를 확인하는 함수라고 추정 가능하다.  
-    - dbconnect();라는 함수는 데이터베이스와 연동하는 함수라고 추정 가능하다.  
+
++ 소스 코드 분석
+    - include문
+        * include문은 특정 파일을 적용시킨다.
+        * php의 include를 모른다면 다음 문서를 참고하자.
+        * <a href = "http://php.net/manual/kr/function.include.php">PHP: include - Manual</a>
+    * 사용자 정의 함수
+        * login_chk();라는 함수는 로그인상태를 확인하는 함수라고 추정 가능하다.  
+        * dbconnect();라는 함수는 데이터베이스와 연동하는 함수라고 추정 가능하다. 
+    - 라이브러리 함수
+        * preg_match()함수
+            1. pregmatch함수는 다음과 같은 형식을 취한다.
+            
     - if(preg_match('/prob|_|\.|\(\)/i', $_GET[id])) exit("No Hack ~_~"); // do not try to attack another table, database!    
     prob, hyphon(-), period(.), parenthesis((,))등이 Get방식으로 입력받은 id에 있으면 No Hack이 출력되는 것을 알 수 있다.
     - if(preg_match('/prob|_|\.|\(\)/i', $_GET[pw])) exit("No Hack ~_~");  
