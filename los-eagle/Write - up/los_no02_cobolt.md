@@ -20,15 +20,17 @@
 ~~~
 ## 소스 코드 분석
 + md5()
-  - 문자열의 md5 해시를 계산한다.
-  - md5 함수는 다음과 같은 형식을 취한다.
-  ~~~
-  string md5 ( string $str [, bool $raw_output ] )
-  ~~~
-  - $raw_output
-    * 값이 TRUE이면, 해시를 길이 16의 바이너리 형식으로 반환한다.
-    * 기본값은 FALSE이다.
-  - 16진수 32 문자로 해시를 반환한다.
+    - 문자열의 md5 해시를 계산한다.
+    - md5 함수는 다음과 같은 형식을 취한다.
+    ~~~
+    string md5 ( string $str [, bool $raw_output ] )
+    ~~~
+    - $raw_output
+        * 값이 TRUE이면, 해시를 길이 16의 바이너리 형식으로 반환한다.
+        * 기본값은 FALSE이다.
+    - 16진수 32 문자로 해시를 반환한다.
+    - md5 함수에 대해 잘 모르겠다면 다음 사이트를 참고하자.  
+    <a href="http://php.net/manual/kr/function.md5.php">PHP: md5 - Manual</a>
 ## 분석 결론
 + 금지 문자, 문자열
     - GET방식으로 입력받은 id값에 prob _ . () 중 하나라도 있다면 "No Hack ~_~"이 출력되고 문제 풀이에 실패한다.

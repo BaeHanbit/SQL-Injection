@@ -1,11 +1,10 @@
 # Lord of SQL Injection No.3 - Goblin
 ## 문제 출제 의도
-1. Single quote 없이 SQL문을 조작 할 수 있는지 확인한다.
-## 소스 코드 분석
-+ 소스코드
-Goblin의 소스코드는 다음과 같다.
+1. UNION 구문 없이 SQL Injection이 가능한지 확인.
+2. '(single quote),"(quote),`(grave accent)없이 WHERE 구문의 조작이 가능한지 확인.
+## 소스 코드
 ~~~
-    <?php 
+<?php 
     include "./config.php"; 
     login_chk(); 
     dbconnect(); 
@@ -19,39 +18,34 @@ Goblin의 소스코드는 다음과 같다.
     highlight_file(__FILE__); 
 ?>
 ~~~
-+ 소스 코드 분석<hr>
-~~~
- if(preg_match('/prob|_|\.|\(\)/i', $_GET[no])) exit("No Hack ~_~"); 
- if(preg_match('/\'|\"|\`/i', $_GET[no])) exit("No Quotes ~_~");
-~~~
-+ <p>Get 방식으로 no를 받으며 만약 입력된 값 중에 prob, _, ., (, )이 하나라도 있으면 No Hack ~_~ 이 출력된다.</p>
-+ 또한 입력 받은 값 중에 ', ", `이 하나라도 있다면 No Quotes ~_~이 출력된다.
-
-~~~
-$query = "select id from prob_goblin where id='guest' and no={$_GET[no]}";
-~~~
-+ 입력받은 no가 query문에 안에 들어감으로 SQL Injection 공격이 가능한걸 알 수 있다.
-
-~~~
-if($result['id']) echo "<h2>Hello {$result[id]}</h2>"; 
-~~~
-+ 만약 데이터베이스에서 받아온 id에 0 이 아닌 것이 들어 있다면 Hello 와 그 값을 출력한다.
-
-~~~
-if($result['id'] == 'admin') solve("goblin");
-~~~
-+ 만약 데이터베이스에서 받아온 id의 값이 'admin'이라면 문제 풀이에 성공한다.
+## 분석 결론
++ 금지 문자, 문자열
+    - GET방식으로 입력받은 no값에 prob _ . () 중 하나라도 있다면 "No Hack ~_~"이 출력되고 문제 풀이에 실패한다.
+    - GET방식으로 입력받은 no값에 '(single quote),"(quote),`(grave accent) 중 하나라도 있다면 "No Quotes ~_~ "이 출력되고 문제 풀이에 실패한다.
 ## 문제 해결
-+ 풀이 방법 <hr>
- **Get**방식으로 값을 입력받기 때문에 URL 다음에 다음과 같이 쿼리 스트링을 추가하면 된다.
+1. limit 구문 이용
+    - Select문에 LIMIT을 사용하여 select 결과를 제한 할 수 있다.
+    - limit 구문은 다음과 같은 형식을 취한다.
     ~~~
-    ?no=1 or 1=1 limit 1,1-- -
+    limit 시작인덱스, 개수
     ~~~
-    즉 where문을 무효화 시킨 다음 전체 값 중 2번째 행의 값만 가져오는 것이다.
-    ?no=-1 or 1=1 을 입력하면 hello admin이라고 나오는데 이후 limit 값을 증가시켜 데이터베이스에는 3개의 행이 있다는 정보를 알수 있고 그 중 2번째 행의 id 값이 admin인 것을 알 수 있다.
-    
-    따라서 결과적으로 쿼리가
+    - a번 인덱스 쿼리부터 b개 만큼 출력하겠다는 의미이다.
+    - 갯수를 1로 고정하고, 시작인덱스를 1로 늘려가며 admin값을 찾을 수 있다.
+    - 다음과 유사한 방법으로 admin을 찾을 수 있다.
     ~~~
-    select id from prob_goblin where id='guest' and no=-1 or 1=1 limit 1,1-- -
+    ?no=1 or 1 limit 1,1 -- -
     ~~~
-    이 되어 문제풀이에 성공한다.
+2. ascii 코드이용
+    - URL에 CHAR 함수를 통해 ASCII값으로 문자를 입력할수있다.
+    - 문자를 문자열로 만들때는 사이에 ,를 넣어 연결한다.
+    - 다음과 유사한 방법으로 id에 admin값을 입력할 수 있다.
+    ~~~
+    ?no=0 or id=char(97,100,109,105,110) -- -
+    ~~~
+    - no 값을 1을 준다면 앞 query의 id=guest도 WHERE 조건절 안에 포함이 되어 문제 풀이에 실패한다.
+3. Hex코드 이용
+    - 0x다음에16진수를 입력하여 ascii 코드를 입력 가능하다.
+    - 다음과 유사한 방법으로 id에 admin값을 입력할 수 있다.
+    ~~~
+    ?no=0 or id=0x61646D696E -- -
+    ~~~
