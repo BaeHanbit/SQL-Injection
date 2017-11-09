@@ -1,6 +1,6 @@
 # Lord of SQL Injection No. 8 - Troll
 ## 문제 출제 의도
-1. ereg함수의 취약점의 이해여부 확인.
+1. ereg함수의 취약점의 이해 여부 확인.
 ## 소스 코드
 ~~~
 <?php  
