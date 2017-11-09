@@ -1,12 +1,10 @@
 ## Lord of SQL Injection No. 14 - Giant
 ## 문제 출제 의도
-1. strlen 함수를 이해하는지 확인.
-2. 공백을 우회 가능한지 확인.
-## 소스 코드 분석
-+ 소스 코드  
-Giant소스 코드는 다음과 같다.   
-    ~~~ 
-    <?php 
+1. strlen 함수를 이해 여부를 확인.
+2. 아스키 코드의 이해 여부를 확인.
+## 소스 코드 
+~~~ 
+<?php 
     include "./config.php"; 
     login_chk(); 
     dbconnect(); 
@@ -17,17 +15,34 @@ Giant소스 코드는 다음과 같다.
     $result = @mysql_fetch_array(mysql_query($query)); 
     if($result[1234]) solve("giant"); 
     highlight_file(__FILE__); 
-    ?>
+?>
+~~~
+## 소스 코드 분석
++ strlen
+    - strlen 함수는 다음과 같은 형식을 취한다.
     ~~~
-+ 소스 코드 분석
-    - 금지 문자, 문자열
-        * Get 방식으로 받은 shit값에  ' '공백, '\n'개행, '\r', '\t'(탭)중 하나라도 있다면 "HeHe"이 출력되고 문제 풀이에 실패한다.
-        * GET방식으로 받은 shit값의 크기가 2
-        - SQL문을 통해 받은 결과 값이 0이 아니라면 문제 풀이에 성공한다.
+    int strlen ( string $string )
+    ~~~
+    - 주어진 string의 길이를 반환한다.
+    - strlen함수에 대해 잘 모르겠다면 다음 사이트를 참고하자.  
+    <a href="http://php.net/manual/kr/function.strlen.php">PHP: strlen - Manual</a>
+## 분석 결론
++ 금지 문자, 문자열
+    - Get 방식으로 받은 shit값에  ' '공백, '\n'개행, '\r', '\t'(탭)중 하나라도 있다면 "HeHe"이 출력되고 문제 풀이에 실패한다.
+    - GET방식으로 받은 shit값의 크기가 2이상이라면 "No Hack ~_~"을 출력하고 문제 풀이에 실패한다.
++ 풀이 성공 조건
+    - 입력한 shit에 값이 있다면 문제 풀이에 성공한다.
 ## 문제 해결
-+ carrage return
-    - 이는 공백을 대신하지만 preg_match에 걸리지 않음으로 정상적으로 결과값을 데이터베이스에서 가져올 수 있다.
-    - 따라서 다음과 같은 추가 문자열을 URL 뒤에 추가하면 문제 풀이에 성공한다.
-    ~~~
-    ?shit=%0b
-    ~~~
+1. ASCII 
+    - carrage return
+        * 이는 공백을 우회 가능하다.
+        * 따라서 다음과 유사한 방법으로 문제 풀이에 성공 할 수 있다.
+        ~~~
+        ?shit=%0b
+        ~~~
+    - Form Feed
+        * 이는 공백을 우회 가능하다.
+        * 따라서 다음과 유사한 방법으로 문제 풀이에 성공 할 수 있다.
+        ~~~
+        ?shit=%0c
+        ~~~
