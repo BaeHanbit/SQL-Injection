@@ -22,6 +22,8 @@
 + 금지 문자, 문자열
     - GET방식으로 입력받은 no값에 prob _ . () 중 하나라도 있다면 "No Hack ~_~"이 출력되고 문제 풀이에 실패한다.
     - GET방식으로 입력받은 no값에 '(single quote),"(quote),`(grave accent) 중 하나라도 있다면 "No Quotes ~_~ "이 출력되고 문제 풀이에 실패한다.
++ 풀이 성공 조건
+     - 데이터베이스에서 받아온 id 값이 'admin'이면 문제 풀이에 성공한다.
 ## 문제 해결
 1. limit 구문 이용
     - Select문에 LIMIT을 사용하여 select 결과를 제한 할 수 있다.
