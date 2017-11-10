@@ -1,13 +1,9 @@
 ## Lord of SQL Injection No. 19 - xavis
 ## 문제 출제 의도
-1. Ascii범위를 벗어난 pw 값을 알아낼 수 있는지 확인한다.
-2. pw 길이를 알아 낼 수 있는지 확인한다.
-3. MYSQL AutoCasting을 이해하는지 확인한다.
-## 소스 코드 분석
-+ 소스코드
-xavis의 소스코드는 다음과 같다.
-    ~~~
-    <?php 
+1. UNICODE의 이해 여부 확인.
+## 소스 코드
+~~~
+<?php 
     include "./config.php"; 
     login_chk(); 
     dbconnect(); 
@@ -22,8 +18,8 @@ xavis의 소스코드는 다음과 같다.
     $result = @mysql_fetch_array(mysql_query($query)); 
     if(($result['pw']) && ($result['pw'] == $_GET['pw'])) solve("xavis"); 
     highlight_file(__FILE__); 
-    ?>
-    ~~~
+?>
+~~~
 + 소스 코드 분석
     + 금지 문자열, 문자
         - Get 방식으로 받은 pw값에 'prob _ . ( )중 하나라도 있다면 "No Hack~_~"이 출력되고 문제 풀이에 실패한다.
